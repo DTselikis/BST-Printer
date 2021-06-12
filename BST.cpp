@@ -46,3 +46,24 @@ int BST::getDisabledNodes() {
 int BST::getTotalNodes() {
 	return this->totalNodes;
 }
+
+Node* BST::insert(Node* root, int key) {
+	if (root == nullptr) {
+		// We reached a leaf so this is where we will
+		// insert the new node
+		return new Node(key);
+	}
+
+	if (key < root->getKey()) {
+		// Key is less than the key of current node so it will
+		// certainly be a left child
+		root->setLeftChild(insert(root->getLeftChild(), key));
+	}
+	else {
+		// Key is greater or equal than the key of current node so it will
+		// certainly be a right child
+		root->setRigthChild(insert(root->getRightChild(), key));
+	}
+
+	return root;
+}

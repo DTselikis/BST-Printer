@@ -20,4 +20,6 @@ public:
 	int getRightCout();
 	int getDisabledNodes();
 	int getTotalNodes();
+
+	Node* insert(Node* root, int key);
 };

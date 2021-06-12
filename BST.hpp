@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.hpp"
+#include <vector>
 
 class BST {
 private:
@@ -30,5 +31,5 @@ public:
 	int treeHeight();
 	Node* Find_Min(Node* root);
 	Node* Find_Max(Node* root);
-
+	std::vector<Node*> Find_Between(Node *root, int key1, int key2);
 };

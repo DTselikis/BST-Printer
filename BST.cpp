@@ -123,3 +123,41 @@ Node* BST::Find_Max(Node* root) {
 
 	return current;
 }
+
+std::vector<Node*> BST::Find_Between(Node* root, int key1, int key2) {
+	std::vector<Node*> values;
+	
+	// At a leaf node values will be empty
+	// so no insertion will be done
+	if (root == nullptr) {
+		return values;
+	}
+
+	// If our lowest value is less than this key it means that we
+	// certainly need to go to the left subtree
+	if (key1 < root->getKey()) {
+		// Store all the values from the left subtree to a temp vector
+		// and then contantinate them
+		std::vector<Node *> tmp = Find_Between(root->getLeftChild(), key1, key2);
+		values.insert(values.end(), tmp.begin(), tmp.end());
+	}
+
+	// If the key is in range, store is to the vector
+	if (key1 <= root->getKey() && root->getKey() <= key2) {
+		values.push_back(root);
+	}
+
+	// If our greatest value is greater than this key it means that we
+	// certainly need to go to the right subtree
+	if (key2 > root->getKey()) {
+		// Store all the values from the left subtree to a temp vector
+		// and then contantinate them
+		std::vector<Node*> tmp = Find_Between(root->getRightChild(), key1, key2);
+		values.insert(values.end(), tmp.begin(), tmp.end());
+	}
+
+	// In the end of each recursion each subtree will return all
+	// the values of its subtrees if falls in range, plus his own
+	// if falls in range
+	return values;
+}

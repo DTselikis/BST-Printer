@@ -15,6 +15,7 @@ private:
 	
 	int bstTreeHeight(Node* root);
 	Node* bstDeleteNode(Node* root, int key);
+	Node* bstInsert(Node* root, int key);
 public:
 	BST();
 	~BST();
@@ -24,8 +25,7 @@ public:
 	int getRightCout();
 	int getDisabledNodes();
 	int getTotalNodes();
-
-	void setRoot(Node* root);
+	Node* getRoot();
 
 	Node* insert(Node* root, int key);
 	int treeHeight(Node* root);

@@ -27,10 +27,6 @@ void BST::deleteTree(Node* root) {
 	delete root;
 }
 
-void BST::setRoot(Node* root) {
-	this->root = root;
-}
-
 int BST::getHeight() {
 	return this->height;
 }
@@ -51,7 +47,11 @@ int BST::getTotalNodes() {
 	return this->totalNodes;
 }
 
-Node* BST::insert(Node* root, int key) {
+Node* BST::getRoot() {
+	return this->root;
+}
+
+Node* BST::bstInsert(Node* root, int key) {
 	if (root == nullptr) {
 		// We reached a leaf so this is where we will
 		// insert the new node
@@ -70,6 +70,12 @@ Node* BST::insert(Node* root, int key) {
 	}
 
 	return root;
+}
+
+Node* BST::insert(Node* root, int key) {
+	this->root = bstInsert(root, key);
+
+	return this->root;
 }
 
 int BST::bstTreeHeight(Node* root) {
@@ -207,5 +213,7 @@ Node* BST::bstDeleteNode(Node* root, int key) {
 }
 
 Node* BST::deleteNode(Node* root, int key) {
-	return bstDeleteNode(root, key);
+	this->root = bstDeleteNode(root, key);
+
+	return this->root;
 }

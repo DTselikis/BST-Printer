@@ -28,4 +28,7 @@ public:
 	Node* insert(Node* root, int key);
 	int treeHeight(Node* root);
 	int treeHeight();
+	Node* Find_Min(Node* root);
+	Node* Find_Max(Node* root);
+
 };

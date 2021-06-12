@@ -105,3 +105,21 @@ int BST::treeHeight() {
 
 	return height;
 }
+
+Node* BST::Find_Min(Node* root) {
+	Node* current;
+	
+	// The minimum value will be at the leftmost child
+	for (current = root; current->getLeftChild() != nullptr; current = current->getLeftChild());
+
+	return current;
+}
+
+Node* BST::Find_Max(Node* root) {
+	Node* current;
+
+	// The minimum value will be at the rightmost child
+	for (current = root; current->getRightChild() != nullptr; current = current->getRightChild());
+
+	return current;
+}

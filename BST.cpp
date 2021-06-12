@@ -71,3 +71,37 @@ Node* BST::insert(Node* root, int key) {
 
 	return root;
 }
+
+int BST::bstTreeHeight(Node* root) {
+	// Heigh of a leaf subtree is zero
+	if (root == nullptr) {
+		return 0;
+	}
+	else {
+		// Find the heigh of each subtree
+		int leftHeight = bstTreeHeight(root->getLeftChild());
+		int rightHeight = bstTreeHeight(root->getRightChild());
+
+		// Compare the heights of the two subtrees and find the
+		// greater
+		if (leftHeight > rightHeight) {
+			return leftHeight + 1;
+		}
+		else {
+			return rightHeight + 1;
+		}
+	}
+}
+
+int BST::treeHeight(Node* root) {
+	int height = bstTreeHeight(root);
+	this->height = height;
+
+	return height;
+}
+
+int BST::treeHeight() {
+	int height = treeHeight(this->root);
+
+	return height;
+}

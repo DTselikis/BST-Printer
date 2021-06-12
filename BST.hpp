@@ -11,6 +11,8 @@ private:
 	int totalNodes;
 
 	void deleteTree(Node* root);
+	
+	int bstTreeHeight(Node* root);
 public:
 	BST();
 	~BST();
@@ -24,4 +26,6 @@ public:
 	void setRoot(Node* root);
 
 	Node* insert(Node* root, int key);
+	int treeHeight(Node* root);
+	int treeHeight();
 };

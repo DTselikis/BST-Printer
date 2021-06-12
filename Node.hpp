@@ -17,6 +17,7 @@ public:
 
 	void setLeftChild(Node* node);
 	void setRigthChild(Node* node);
+	void setKey(int key);
 	
 	void disable();
 };

@@ -36,3 +36,7 @@ void Node::setRigthChild(Node* node) {
 void Node::disable() {
 	this->active = false;
 }
+
+void Node::setKey(int key) {
+	this->key = key;
+}

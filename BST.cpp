@@ -161,3 +161,51 @@ std::vector<Node*> BST::Find_Between(Node* root, int key1, int key2) {
 	// if falls in range
 	return values;
 }
+
+Node* BST::bstDeleteNode(Node* root, int key) {
+	if (root == nullptr) {
+		return root;
+	}
+
+	// If key is less that current node's key we must
+	// go to the left subtree
+	if (key < root->getKey()) {
+		root->setLeftChild(bstDeleteNode(root->getLeftChild(), key));
+	}
+	// If key is greater that current node's key we must
+	// go to the right subtree
+	else if (key > root->getKey()) {
+		root->setRigthChild(bstDeleteNode(root->getRightChild(), key));
+	}
+	// We find the node
+	else {
+		// If it has no children we simple delete it
+		if (root->getLeftChild() == nullptr && root->getRightChild() == nullptr) {
+			delete root;
+			root = nullptr;
+		}
+		// If has only a right child, it will take it's place
+		else if (root->getLeftChild() == nullptr) {
+			struct Node* tmp = root;
+			root = root->getRightChild();
+			delete tmp;
+		}
+		// If has only a left child, it will take it's place
+		else if (root->getRightChild() == nullptr) {
+			struct Node* tmp = root;
+			root = root->getLeftChild();
+			delete tmp;
+		}
+		// If has two children, we mark it as disabled
+		else {
+			root->disable();
+			this->disabledNodes++;
+		}
+	}
+
+	return root;
+}
+
+Node* BST::deleteNode(Node* root, int key) {
+	return bstDeleteNode(root, key);
+}

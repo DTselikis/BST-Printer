@@ -27,6 +27,10 @@ void BST::deleteTree(Node* root) {
 	delete root;
 }
 
+void BST::setRoot(Node* root) {
+	this->root = root;
+}
+
 int BST::getHeight() {
 	return this->height;
 }

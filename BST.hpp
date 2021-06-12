@@ -21,5 +21,7 @@ public:
 	int getDisabledNodes();
 	int getTotalNodes();
 
+	void setRoot(Node* root);
+
 	Node* insert(Node* root, int key);
 };

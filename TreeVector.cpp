@@ -62,7 +62,7 @@ std::vector<int> TreeVector::toSortedArray() {
 
 	// Store each node that exists
 	for (auto& node : ordered) {
-		if (node != nullptr) {
+		if (node != nullptr && node->isActive() == true) {
 			sorted.push_back(node->getKey());
 		}
 	}

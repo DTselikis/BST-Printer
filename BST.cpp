@@ -112,6 +112,42 @@ Node* BST::bstInsert(Node* root, int key) {
 	return current;
 }
 
+int BST::countNodes(Node* root) {
+	if (root == nullptr) {
+		return 0;
+	}
+
+	// Starts from 1 to include current node
+	return 1 + countNodes(root->getLeftChild()) + countNodes(root->getRightChild());
+}
+
+Node* BST::isBalanced(Node* root) {
+	// If there is no tree, it's certainly balanced
+	if (root == nullptr) {
+		return nullptr;
+	}
+
+	Node* tmp = nullptr;
+	
+	int leftCount = countNodes(root->getLeftChild());
+	int rightCount = countNodes(root->getRightChild());
+
+	if (leftCount > 0 && rightCount > 0) {
+		// If subtree is unbalanced, return the node that corresponds to
+		// that subtree
+		if (leftCount >= 2 * rightCount || rightCount >= 2 * leftCount) {
+			return root;
+		}
+	}
+
+	// If not, search the other subtrees
+	tmp = isBalanced(root->getLeftChild());
+	if (tmp == nullptr) {
+		tmp = isBalanced(root->getRightChild());
+	}
+
+	return tmp;
+}
 Node* BST::insert(Node* root, int key) {
 	this->root = bstInsert(root, key);
 

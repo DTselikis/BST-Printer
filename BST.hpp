@@ -13,6 +13,8 @@ private:
 
 	void deleteTree(Node* root);
 	Node* rerouteDisabled(Node* node);
+	Node* isBalanced(Node* root);
+	int countNodes(Node* root);
 	
 	int bstTreeHeight(Node* root);
 	Node* bstDeleteNode(Node* root, int key);

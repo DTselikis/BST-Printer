@@ -15,6 +15,7 @@ private:
 	Node* rerouteDisabled(Node* node);
 	Node* isBalanced(Node* root);
 	int countNodes(Node* root);
+	Node* sortedArrayToBST(std::vector<int> sorted, int start, int end);
 	
 	int bstTreeHeight(Node* root);
 	Node* bstDeleteNode(Node* root, int key);
@@ -37,4 +38,5 @@ public:
 	Node* Find_Max(Node* root);
 	std::vector<Node*> Find_Between(Node *root, int key1, int key2);
 	Node* deleteNode(Node* root, int key);
+	Node* reconstruct(Node* root);
 };

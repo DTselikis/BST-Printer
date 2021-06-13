@@ -1,5 +1,6 @@
 #pragma once
 #include "BST.hpp"
+#include "TreeVector.hpp"
 
 BST::BST() : root(nullptr) {
 
@@ -148,8 +149,40 @@ Node* BST::isBalanced(Node* root) {
 
 	return tmp;
 }
+
+Node* BST::sortedArrayToBST(std::vector<int> sorted, int start, int end) {
+	if (start > end) {
+		return nullptr;
+	}
+
+	int mid = (start + end) / 2;
+	Node* root = new Node(sorted[mid]);
+
+	root->setLeftChild(sortedArrayToBST(sorted, start, mid - 1));
+	root->setRigthChild(sortedArrayToBST(sorted, mid + 1, end));
+
+	return root;
+}
+
+Node* BST::reconstruct(Node* root) {
+	TreeVector treeVector(this);
+	std::vector<int> sorted = treeVector.toSortedArray();
+
+	deleteTree(this->root);
+
+	this->root = sortedArrayToBST(sorted, 0, sorted.size() - 1);
+
+	treeHeight(this->root);
+
+	return this->root;
+}
+
 Node* BST::insert(Node* root, int key) {
 	this->root = bstInsert(root, key);
+
+	if (isBalanced(this->root) != nullptr) {
+		this->root = reconstruct(this->root);
+	}
 
 	return this->root;
 }
@@ -323,6 +356,12 @@ Node* BST::bstDeleteNode(Node* root, int key) {
 
 Node* BST::deleteNode(Node* root, int key) {
 	this->root = bstDeleteNode(root, key);
+
+	// If the number of the disabled nodes is greated than
+	// half of the nubmer of total nodes, tree needs reconstruction
+	if (this->disabledNodes > this->totalNodes / 2 && this->treeHeight() >= 3) {
+		this->root = reconstruct(this->root);
+	}
 
 	return this->root;
 }

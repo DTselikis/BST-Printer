@@ -2,6 +2,7 @@
 #include "TreePrinter.hpp"
 #include "TreeVector.hpp"
 #include <vector>
+#include <iostream>
 #include <stdlib.h>
 
 TreePrinter::TreePrinter(BST* tree) : tree(tree) {
@@ -182,4 +183,14 @@ char **TreePrinter::getFormatedOutput() {
 	}
 
 	return buffer;
+}
+
+void TreePrinter::print() {
+	char **output = getFormatedOutput();
+
+	for (int level = 0; level < this->tree->getHeight(); level++) {
+		std::cout << output[level] << std::endl;
+
+		delete[] output[level];
+	}
 }

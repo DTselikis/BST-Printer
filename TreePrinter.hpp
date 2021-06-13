@@ -13,6 +13,8 @@ private:
 	
 	int countNodes(Node* root);
 	std::vector<struct nodeInfo*> digitsCounts(std::vector<Node *> levelOrder);
+	char **getFormatedOutput();
+
 	int digits(int num);
 	int treeDigits(Node* node);
 	int insertDigits(char** buffer, int count, int level, Node* node);

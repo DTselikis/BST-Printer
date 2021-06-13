@@ -12,7 +12,7 @@ private:
 
 	
 	int countNodes(Node* root);
-	std::vector<struct nodeInfo*> nodesCounts(std::vector<Node *> levelOrder);
+	std::vector<struct nodeInfo*> digitsCounts(std::vector<Node *> levelOrder);
 	int digits(int num);
 	int treeDigits(Node* node);
 public:

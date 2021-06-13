@@ -38,21 +38,20 @@ int TreePrinter::treeDigits(Node* root) {
 	return count;
 }
 
-std::vector<struct nodeInfo *> TreePrinter::nodesCounts(std::vector<Node*> levelOrder) {
+std::vector<struct nodeInfo *> TreePrinter::digitsCounts(std::vector<Node*> levelOrder) {
 	std::vector<struct nodeInfo*> infos;
 
 	// For every node in the tree, calculate the number of the
-	// children of the left subtree and the number of children of the
-	// right subtree
+	// digits of the subtree
 	for (auto& node : levelOrder) {
 		struct nodeInfo* info = new nodeInfo;
 
 		if (node != nullptr) {
-			info->leftCount = countNodes(node->getLeftChild());
-			info->rightCount = countNodes(node->getRightChild());
+			info->leftCount = treeDigits(node->getLeftChild());
+			info->rightCount = treeDigits(node->getRightChild());
 		}
 		else {
-			// If the node does not exists, it will have zero children
+			// If the node does not exists, it will have zero digits
 			info->leftCount = 0;
 			info->rightCount = 0;
 		}

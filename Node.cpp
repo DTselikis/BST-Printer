@@ -7,6 +7,7 @@ Node::Node(int key, bool active) : key(key), leftChild(nullptr), rightChild(null
 Node::~Node() {
 	this->leftChild = nullptr;
 	this->rightChild = nullptr;
+	this->rerouted = false;
 }
 
 int Node::getKey() {
@@ -25,6 +26,10 @@ bool Node::isActive() {
 	return this->active;
 }
 
+bool Node::isRerouted() {
+	return this->rerouted;
+}
+
 void Node::setLeftChild(Node* node) {
 	this->leftChild = node;
 }
@@ -35,6 +40,10 @@ void Node::setRigthChild(Node* node) {
 
 void Node::disable() {
 	this->active = false;
+}
+
+void Node::setRerouted() {
+	this->rerouted = true;
 }
 
 void Node::setKey(int key) {

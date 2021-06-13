@@ -13,6 +13,8 @@ private:
 	
 	int countNodes(Node* root);
 	std::vector<struct nodeInfo*> nodesCounts(std::vector<Node *> levelOrder);
+	int digits(int num);
+	int treeDigits(Node* node);
 public:
 	TreePrinter(BST* tree);
 

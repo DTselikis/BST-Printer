@@ -12,6 +12,7 @@ private:
 	int totalNodes;
 
 	void deleteTree(Node* root);
+	Node* rerouteDisabled(Node* node);
 	
 	int bstTreeHeight(Node* root);
 	Node* bstDeleteNode(Node* root, int key);

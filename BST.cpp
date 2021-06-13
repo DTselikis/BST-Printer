@@ -51,6 +51,41 @@ Node* BST::getRoot() {
 	return this->root;
 }
 
+Node* BST::rerouteDisabled(Node* node) {
+	Node* current = node;
+
+	Node* tmp;
+	// If the disabled node hasn't been retouted before
+	if (current->isRerouted() == false) {
+		// Find the node with the minimum value
+		tmp = Find_Min(current->getRightChild());
+		// We know that this node will "replace" a node with
+		// two childer, and also that this node has no children.
+		// So we set as the left child of this node the left child
+		// of the node to be "replaced".
+		tmp->setLeftChild(current->getLeftChild());
+		// If this node had a right child, we perform a deletion
+		// and insertion of this child to update all the nodes
+		if (tmp->getRightChild() != nullptr) {
+			int tmp2 = tmp->getRightChild()->getKey();
+			deleteNode(current, tmp->getRightChild()->getKey());
+			insert(tmp, tmp2);
+		}
+		current->setRerouted();
+	}
+	else {
+		// If the node has already been rerouted, we know that
+		// we should go to the right subtree (because in the case of
+		// deletion of a node with two children, we find the node with the
+		// minimum value of the right subtree.
+		tmp = current->getRightChild();
+	}
+
+	current = tmp;
+
+	return current;
+}
+
 Node* BST::bstInsert(Node* root, int key) {
 	if (root == nullptr) {
 		// We reached a leaf so this is where we will
@@ -58,18 +93,23 @@ Node* BST::bstInsert(Node* root, int key) {
 		return new Node(key);
 	}
 
-	if (key < root->getKey()) {
+	Node* current = root;
+	if (!current->isActive()) {
+		current = rerouteDisabled(current);
+	}
+
+	if (key < current->getKey()) {
 		// Key is less than the key of current node so it will
 		// certainly be a left child
-		root->setLeftChild(insert(root->getLeftChild(), key));
+		current->setLeftChild(insert(current->getLeftChild(), key));
 	}
 	else {
 		// Key is greater or equal than the key of current node so it will
 		// certainly be a right child
-		root->setRigthChild(insert(root->getRightChild(), key));
+		current->setRigthChild(insert(current->getRightChild(), key));
 	}
 
-	return root;
+	return current;
 }
 
 Node* BST::insert(Node* root, int key) {
@@ -113,19 +153,47 @@ int BST::treeHeight() {
 }
 
 Node* BST::Find_Min(Node* root) {
+	if (root == nullptr) {
+		return nullptr;
+	}
+
 	Node* current;
 	
 	// The minimum value will be at the leftmost child
-	for (current = root; current->getLeftChild() != nullptr; current = current->getLeftChild());
+	current = root;
+	while (current->getLeftChild() != nullptr) {
+		// If the node is disabled, find the corresponded node
+		if (!current->isActive()) {
+			current = rerouteDisabled(current);
+		}
+		// Otherwise search the right subtree, as intended
+		else {
+			current = current->getLeftChild();
+		}
+	}
 
 	return current;
 }
 
 Node* BST::Find_Max(Node* root) {
+	if (root == nullptr) {
+		return nullptr;
+	}
+
 	Node* current;
 
-	// The minimum value will be at the rightmost child
-	for (current = root; current->getRightChild() != nullptr; current = current->getRightChild());
+	// The maximum value will be at the rightmost child
+	current = root;
+	while (current->getRightChild() != nullptr) {
+		// If the node is disabled, find the corresponded node
+		if (!current->isActive()) {
+			current = rerouteDisabled(current);
+		}
+		// Otherwise search the right subtree, as intended
+		else {
+			current = current->getRightChild();
+		}
+	}
 
 	return current;
 }
@@ -137,6 +205,11 @@ std::vector<Node*> BST::Find_Between(Node* root, int key1, int key2) {
 	// so no insertion will be done
 	if (root == nullptr) {
 		return values;
+	}
+
+	// If the node is disabled, find the corresponded node
+	if (!root->isActive()) {
+		root = rerouteDisabled(root);
 	}
 
 	// If our lowest value is less than this key it means that we

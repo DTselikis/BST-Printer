@@ -13,4 +13,5 @@ public:
 	~TreeVector();
 
 	std::vector<Node*> toLevelOrderArray();
+	std::vector<int> toSortedArray();
 };

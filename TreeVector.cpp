@@ -1,6 +1,7 @@
 #pragma once
 #include "TreeVector.hpp"
 #include <queue>
+#include <algorithm>
 
 TreeVector::TreeVector(BST* tree) : tree(tree) {
 }
@@ -49,6 +50,27 @@ std::vector<Node*> TreeVector::levelOrder(Node* root) {
 	}
 
 	return vec;
+}
+
+bool comparison(int key1, int key2) {
+	return key1 < key2;
+}
+
+std::vector<int> TreeVector::toSortedArray() {
+	std::vector<Node*> ordered = levelOrder(this->tree->getRoot());
+	std::vector<int> sorted;
+
+	// Store each node that exists
+	for (auto& node : ordered) {
+		if (node != nullptr) {
+			sorted.push_back(node->getKey());
+		}
+	}
+
+	// Use sort from algorithm library to sort the vector
+	std::sort(sorted.begin(), sorted.end(), comparison);
+	
+	return sorted;
 }
 
 std::vector<Node*> TreeVector::toLevelOrderArray() {

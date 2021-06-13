@@ -1,6 +1,7 @@
 #pragma once
 #include "TreePrinter.hpp"
 #include <vector>
+#include <stdlib.h>
 
 TreePrinter::TreePrinter(BST* tree) : tree(tree) {
 
@@ -60,4 +61,27 @@ std::vector<struct nodeInfo *> TreePrinter::digitsCounts(std::vector<Node*> leve
 	}
 
 	return infos;
+}
+
+int TreePrinter::insertDigits(char** buffer, int count, int level, Node* node) {
+	// If the node does not exists it will have zero digits
+	if (node == nullptr) {
+		return 0;
+	}
+
+	int key = node->getKey();
+	// Allocate memory to store char * representation of the key
+	// + 1 for '\0'
+	char* strKey = new char[digits(node->getKey()) + 1];
+	// Convert key to char *
+	_itoa(key, strKey, 10);
+	// Copy alpharithmetic key to position buffer size * level
+	// to go the specific row and + count for the column
+	strncpy(buffer[level] + count, strKey, digits(node->getKey()));
+
+	// Deallocate memory
+	delete strKey;
+
+	// Return the numbers of digits that have been written
+	return digits(node->getKey());
 }

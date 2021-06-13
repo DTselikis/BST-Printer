@@ -15,6 +15,7 @@ private:
 	std::vector<struct nodeInfo*> digitsCounts(std::vector<Node *> levelOrder);
 	int digits(int num);
 	int treeDigits(Node* node);
+	int insertDigits(char** buffer, int count, int level, Node* node);
 public:
 	TreePrinter(BST* tree);
 

@@ -109,7 +109,7 @@ char **TreePrinter::getFormatedOutput() {
 	int count = 0;
 	// Fill with as many X as the number of digits of the left subtree
 	for (int i = 0; i < infos[0]->leftCount; i++) {
-		buffer[0][i] = 'X';
+		buffer[0][i] = ' ';
  	}
 	// Then insert the digits of the node
 	insertDigits(buffer, infos[0]->leftCount, 0, levelOrder[0]);
@@ -117,7 +117,7 @@ char **TreePrinter::getFormatedOutput() {
 	count += infos[0]->leftCount + digits(levelOrder[0]->getKey());
 	// Fill with as many X as the number of digits of the right subtree
 	for (int i = 0; i < infos[0]->rightCount; i++) {
-		buffer[0][i + count] = 'X';
+		buffer[0][i + count] = ' ';
 	}
 
 	// For the rest of the tree, construct each row
@@ -130,7 +130,7 @@ char **TreePrinter::getFormatedOutput() {
 			int k;
 			// Fill with as many X as the number of digits of the left subtree
 			for (k = 0; k < infos[printedNodes]->leftCount; k++) {
-				buffer[level][k + count] = 'X';
+				buffer[level][k + count] = ' ';
 			}
 			// Add the number of the digits of the left subtree
 			count += k;
@@ -139,7 +139,7 @@ char **TreePrinter::getFormatedOutput() {
 			int j;
 			// Fill with as many X as the number of digits of the right subtree
 			for (j = 0; j < infos[printedNodes]->rightCount; j++) {
-				buffer[level][j + count] = 'X';
+				buffer[level][j + count] = ' ';
 			}
 			// Add the number of the digits of the right subtree
 			count += j;
@@ -150,7 +150,7 @@ char **TreePrinter::getFormatedOutput() {
 			// of the row.
 			if (i == nodesToPrint - 1) {
 				for (count; count < totalDigits; count++) {
-					buffer[level][count] = 'X';
+					buffer[level][count] = ' ';
 				}
 			}
 			else {
@@ -160,8 +160,8 @@ char **TreePrinter::getFormatedOutput() {
 				bool flag = true;
 				bool innerFlag = true;
 				for (j = 0; j < level && flag == true; j++) {
-					while (buffer[j][count] != 'X' && innerFlag == true) {
-						buffer[level][count] = 'X';
+					while (buffer[j][count] != ' ' && innerFlag == true) {
+						buffer[level][count] = ' ';
 						count++;
 						// We know it will be only one ancestor
 						flag = false;

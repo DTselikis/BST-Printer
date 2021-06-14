@@ -101,9 +101,11 @@ char **TreePrinter::getFormatedOutput() {
 	int height = this->tree->getHeight();
 
 	// Construct the output buffer and set the end point
-	char** buffer = new char*[height];
+	char** buffer = new char*[height * sizeof(char *)];
+	
+	
 	for (int i = 0; i < totalDigits; i++) {
-		buffer[i] = new char[totalDigits + 1];
+		buffer[i] = new char[totalDigits + 1 * sizeof(char)];
 		buffer[i][totalDigits] = '\0';
 	}
 

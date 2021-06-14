@@ -3,7 +3,11 @@
 #include "TreeVector.hpp"
 
 BST::BST() : root(nullptr) {
-
+	this->height = 0;
+	this->leftCount = 0;
+	this->rightCount = 0;
+	this->disabledNodes = 0;
+	this->totalNodes = 0;
 }
 
 BST::~BST() {
@@ -150,13 +154,13 @@ Node* BST::isBalanced(Node* root) {
 	return tmp;
 }
 
-Node* BST::sortedArrayToBST(std::vector<int> sorted, int start, int end) {
+Node* BST::sortedArrayToBST(std::vector<int> *sorted, int start, int end) {
 	if (start > end) {
 		return nullptr;
 	}
 
 	int mid = (start + end) / 2;
-	Node* root = new Node(sorted[mid]);
+	Node* root = new Node(sorted->at(mid));
 
 	root->setLeftChild(sortedArrayToBST(sorted, start, mid - 1));
 	root->setRigthChild(sortedArrayToBST(sorted, mid + 1, end));
@@ -165,12 +169,16 @@ Node* BST::sortedArrayToBST(std::vector<int> sorted, int start, int end) {
 }
 
 Node* BST::reconstruct(Node* root) {
+	if (root == nullptr) {
+		return nullptr;
+	}
+
 	TreeVector treeVector(this);
 	std::vector<int> sorted = treeVector.toSortedArray();
 
 	deleteTree(this->root);
 
-	this->root = sortedArrayToBST(sorted, 0, sorted.size() - 1);
+	this->root = sortedArrayToBST(&sorted, 0, sorted.size() - 1);
 
 	treeHeight(this->root);
 
@@ -334,13 +342,13 @@ Node* BST::bstDeleteNode(Node* root, int key) {
 		}
 		// If has only a right child, it will take it's place
 		else if (root->getLeftChild() == nullptr) {
-			struct Node* tmp = root;
+			Node* tmp = root;
 			root = root->getRightChild();
 			delete tmp;
 		}
 		// If has only a left child, it will take it's place
 		else if (root->getRightChild() == nullptr) {
-			struct Node* tmp = root;
+			Node* tmp = root;
 			root = root->getLeftChild();
 			delete tmp;
 		}

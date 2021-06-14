@@ -2,12 +2,12 @@
 #include "Node.hpp"
 
 Node::Node(int key, bool active) : key(key), leftChild(nullptr), rightChild(nullptr), active(active) {
+	this->rerouted = false;
 }
 
 Node::~Node() {
 	this->leftChild = nullptr;
 	this->rightChild = nullptr;
-	this->rerouted = false;
 }
 
 int Node::getKey() {

@@ -32,7 +32,7 @@ std::vector<Node*> TreeVector::levelOrder(Node* root) {
 				queue.push(vec.back()->getLeftChild());
 			}
 			else {
-				// If there is no left child, store the null value
+				// If there is no left child, store the nullptr value
 				// for future use
 				queue.push(nullptr);
 			}
@@ -41,7 +41,7 @@ std::vector<Node*> TreeVector::levelOrder(Node* root) {
 				queue.push(vec.back()->getRightChild());
 			}
 			else {
-				// If there is no right child, store the null value
+				// If there is no right child, store the nullptr value
 				// for future use
 				queue.push(nullptr);
 			}

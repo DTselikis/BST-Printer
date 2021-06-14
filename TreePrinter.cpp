@@ -190,6 +190,10 @@ char **TreePrinter::getFormatedOutput() {
 }
 
 void TreePrinter::print() {
+	if (this->tree->getRoot() == nullptr) {
+		return;
+	}
+
 	char **output = getFormatedOutput();
 
 	for (int level = 0; level < this->tree->getHeight(); level++) {

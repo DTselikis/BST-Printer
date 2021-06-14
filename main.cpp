@@ -1,6 +1,7 @@
 #include "BST.hpp"
 #include "Node.hpp"
 #include "TreePrinter.hpp"
+#include "TreeVector.hpp"
 #include <iostream>
 #include <vector>
 
@@ -9,7 +10,7 @@ void performAction(short choice, BST *bst, int key = 0, int key2 = 0);
 
 int main(int argc, char* argv[]) {
 	BST* bst = new BST;
-
+	
 	short choice = menu();
 	while (choice != 0) {
 		switch (choice) {
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
 }
 
 short menu() {
-	short choice = 99;
+	short choice;
 
 	std::cout << "Select:" << std::endl;
 	std::cout << "1. Insert new node" << std::endl;

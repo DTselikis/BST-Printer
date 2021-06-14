@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
+#include <string>
+#include <string.h>
 
 TreePrinter::TreePrinter(BST* tree) : tree(tree) {
 
@@ -72,17 +74,17 @@ int TreePrinter::insertDigits(char** buffer, int count, int level, Node* node) {
 	}
 
 	int key = node->getKey();
-	// Allocate memory to store char * representation of the key
-	// + 1 for '\0'
-	char* strKey = new char[digits(node->getKey()) + 1];
-	// Convert key to char *
-	_itoa(key, strKey, 10);
+	// Convert int to string
+	std::string strKey = std::to_string(key);
 	// Copy alpharithmetic key to position buffer size * level
 	// to go the specific row and + count for the column
-	strncpy(buffer[level] + count, strKey, digits(node->getKey()));
-
-	// Deallocate memory
-	delete strKey;
+	char* tmp = new char[digits(key) + 1];
+	strcpy(tmp, strKey.c_str());
+	int i = 0;
+	while (i < digits(key)) {
+		buffer[level][count + i] = tmp[i];
+		i++;
+	}
 
 	// Return the numbers of digits that have been written
 	return digits(node->getKey());

@@ -67,7 +67,7 @@ std::vector<struct nodeInfo *> TreePrinter::digitsCounts(std::vector<Node*> leve
 	return infos;
 }
 
-int TreePrinter::insertDigits(char** buffer, int count, int level, Node* node) {
+int TreePrinter::insertDigits(char** buffer, int offset, int level, Node* node) {
 	// If the node does not exists it will have zero digits
 	if (node == nullptr) {
 		return 0;
@@ -82,9 +82,11 @@ int TreePrinter::insertDigits(char** buffer, int count, int level, Node* node) {
 	strcpy(tmp, strKey.c_str());
 	int i = 0;
 	while (i < digits(key)) {
-		buffer[level][count + i] = tmp[i];
+		buffer[level][offset + i] = tmp[i];
 		i++;
 	}
+
+	delete[] tmp;
 
 	// Return the numbers of digits that have been written
 	return digits(node->getKey());

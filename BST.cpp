@@ -4,8 +4,6 @@
 
 BST::BST() : root(nullptr) {
 	this->height = 0;
-	this->leftCount = 0;
-	this->rightCount = 0;
 	this->disabledNodes = 0;
 	this->totalNodes = 0;
 }
@@ -34,14 +32,6 @@ void BST::deleteTree(Node* root) {
 
 int BST::getHeight() {
 	return this->height;
-}
-
-int BST::getLeftCount() {
-	return this->leftCount;
-}
-
-int BST::getRightCout() {
-	return this->rightCount;
 }
 
 int BST::getDisabledNodes() {

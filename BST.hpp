@@ -6,8 +6,6 @@ class BST {
 private:
 	Node* root;
 	int height;
-	int leftCount;
-	int rightCount;
 	int disabledNodes;
 	int totalNodes;
 
@@ -25,8 +23,6 @@ public:
 	~BST();
 
 	int getHeight();
-	int getLeftCount();
-	int getRightCout();
 	int getDisabledNodes();
 	int getTotalNodes();
 	Node* getRoot();
